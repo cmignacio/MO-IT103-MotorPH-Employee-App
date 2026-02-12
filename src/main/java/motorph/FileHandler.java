@@ -119,7 +119,7 @@ public class FileHandler {
                     for (int i = 0; i < headers.length; i++) {
                         employeeDataMap.put(headers[i], nextLine[i]);
                     }
-                    Employee employee = new Employee(employeeDataMap);
+                    Employee employee = new RegularEmployee(employeeDataMap);
                     employees.add(employee); //Adds employee to the list
                 } else {
                     //Log or handle lines that don't have enough columns
@@ -370,4 +370,5 @@ public class FileHandler {
             return false;
         }
     }
+
 }
