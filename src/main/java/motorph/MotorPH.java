@@ -218,7 +218,7 @@ public class MotorPH {
         collectInput(scanner, data, "Gross Semi-monthly Rate", "Gross Semi-monthly Rate");
         collectInput(scanner, data, "Hourly Rate", "Hourly Rate");
 
-        Employee employee = new Employee(data);
+        Employee employee = new RegularEmployee(data);
         fileHandler.saveEmployee(employee);
         System.out.println("\nEmployee added successfully!");
         printSectionFooter();
@@ -599,4 +599,5 @@ public class MotorPH {
         payroll.calculateAllWeeklyPayroll(selectedMonth, weekChoice == 5 ? 0 : weekChoice);
         printSectionFooter();
     }
+
 }
