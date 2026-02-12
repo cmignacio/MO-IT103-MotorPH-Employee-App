@@ -59,13 +59,20 @@ public class PayrollCalculator {
         else return Math.min(monthlySalary * 0.02, 100.00);
     }
 
-    private double calculateWithholdingTax(double monthlySalary, double sss, double philhealth, double pagibig) {
+    private double calculateWithholdingTax(double monthlySalary,
+                                           double sss,
+                                           double philhealth,
+                                           double pagibig) {
+
         double taxableIncome = monthlySalary - (sss + philhealth + pagibig);
 
         if (taxableIncome <= 20833.00) return 0.00;
-        else if (taxableIncome <= 33333.00) return (taxableIncome - 20833.00) * 0.20;
-        else if (taxableIncome <= 66667.00) return 2500.00 + (taxableIncome - 33333.00) * 0.25;
-        else return 10833.00 + (taxableIncome - 66667.00) * 0.30;
+        else if (taxableIncome <= 33333.00)
+            return (taxableIncome - 20833.00) * 0.20;
+        else if (taxableIncome <= 66667.00)
+            return 2500.00 + (taxableIncome - 33333.00) * 0.25;
+        else
+            return 10833.00 + (taxableIncome - 66667.00) * 0.30;
     }
 
     public void processPayroll(String employeeId, YearMonth month, int weekNumber) {
@@ -161,7 +168,6 @@ public class PayrollCalculator {
         double overtimeRegular = overtimeHours.get(false);
         double overtimeRest = overtimeHours.get(true);
 
-        // 🔥 TRUE POLYMORPHISM HERE
         double grossPay = employee.computePay(
                 totalRegularHours,
                 overtimeRegular,
@@ -201,5 +207,28 @@ public class PayrollCalculator {
         for (Employee employee : fileHandler.readEmployees()) {
             processPayroll(employee.getEmployeeId(), month, weekNumber);
         }
+    }
+
+    // REQUIRED FOR GUI AND MotorPH.java
+
+    public List<YearMonth> getAvailableMonths(String employeeId) {
+        return fileHandler.getAllAttendanceRecords().stream()
+                .filter(r -> r.getEmployeeId().equals(employeeId))
+                .map(r -> YearMonth.from(
+                        r.getDate().with(TemporalAdjusters.nextOrSame(DayOfWeek.FRIDAY))
+                ))
+                .distinct()
+                .sorted()
+                .collect(Collectors.toList());
+    }
+
+    public List<YearMonth> getAllAvailableMonths() {
+        return fileHandler.getAllAttendanceRecords().stream()
+                .map(r -> YearMonth.from(
+                        r.getDate().with(TemporalAdjusters.nextOrSame(DayOfWeek.FRIDAY))
+                ))
+                .distinct()
+                .sorted()
+                .collect(Collectors.toList());
     }
 }

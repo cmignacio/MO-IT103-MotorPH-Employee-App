@@ -2,6 +2,7 @@ package motorph.gui.admin;
 
 import motorph.Employee;
 import motorph.FileHandler;
+import motorph.RegularEmployee;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -442,7 +443,7 @@ public class EmployeeDialog extends javax.swing.JDialog {
             employeeData.put("Clothing Allowance", clothingAllowanceField.getText().trim().replace(",", ""));
             employeeData.put("Hourly Rate", hourlyRateTextField.getText().trim().replace(",", ""));
 
-            Employee newEmployee = new Employee(employeeData);
+            Employee newEmployee = new RegularEmployee(employeeData);
             FileHandler fileHandler = new FileHandler();
 
             // Check for duplicate ID

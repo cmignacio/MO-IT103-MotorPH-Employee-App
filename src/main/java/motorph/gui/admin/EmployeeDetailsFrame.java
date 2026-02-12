@@ -2,6 +2,7 @@ package motorph.gui.admin;
 
 import motorph.Employee;
 import motorph.FileHandler;
+import motorph.RegularEmployee;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
@@ -180,7 +181,7 @@ public class EmployeeDetailsFrame extends javax.swing.JFrame {
             updatedData.put("Gross Semi-monthly Rate", "0.0");
             updatedData.put("Hourly Rate", hourlyRateTextField.getText().trim().replace(",", ""));
 
-            Employee updatedEmployee = new Employee(updatedData);
+            Employee updatedEmployee = new RegularEmployee(updatedData);
             fileHandler.saveEmployee(updatedEmployee);
 
             if (employeesPanel != null) {
