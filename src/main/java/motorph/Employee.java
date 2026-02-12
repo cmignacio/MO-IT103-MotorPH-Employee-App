@@ -76,8 +76,12 @@ public abstract class Employee {
      * Abstract method for payroll computation.
      * Each subclass must define how pay is computed.
      */
-    public abstract double computePay();
-
+    public abstract double computePay(
+        double regularHours,
+        double overtimeRegularHours,
+        double overtimeRestHours,
+        int lateMinutes
+);
     /**
      * Safely parses a string that may contain commas into a double.
      */
@@ -193,3 +197,4 @@ public abstract class Employee {
         return map;
     }
 }
+
